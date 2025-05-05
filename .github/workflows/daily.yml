@@ -1,0 +1,37 @@
+name: Daily Paper Summary
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 오전 9시 KST = 자정 UTC
+  workflow_dispatch:
+
+jobs:
+  run-summary:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Run summarization
+      env:
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      run: |
+        python daily_runner.py
+
+    - name: Commit results
+      run: |
+        git config --global user.email "actions@github.com"
+        git config --global user.name "GitHub Actions"
+        git add output/summaries/
+        git commit -m "Daily summary for $(date +'%Y-%m-%d')" || echo "No changes"
+        git push
