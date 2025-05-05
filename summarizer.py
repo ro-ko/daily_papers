@@ -32,7 +32,7 @@ Your summary should cover the following in order:
     """
     try:
         response = client.responses.create(
-            model="gpt-4.1-mini",
+            model="gpt-4o-mini",
             input=prompt,
             tools=[{"type": "web_search_preview"}],
         )
