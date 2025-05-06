@@ -39,9 +39,10 @@ jobs:
         git config user.email "github-actions[bot]@users.noreply.github.com"
         
     - name: Commit and push summary
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         git add output/summaries/*.md
         git commit -m "Daily summary for $(date +'%Y-%m-%d')" || echo "No changes to commit"
-        git push origin main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git HEAD:${{ github.ref_name }}
+    
