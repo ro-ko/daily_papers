@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@main
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@main
+      uses: actions/setup-python@v4
       with:
         python-version: '3.9.21'
 
@@ -26,7 +26,7 @@ jobs:
     - name: Install Playwright Browsers
       run: |
         playwright install
-        
+
     - name: Run summarization
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
