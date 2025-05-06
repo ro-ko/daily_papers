@@ -2,7 +2,7 @@ name: Daily Paper Summary
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 매일 오전 9시 KST = 자정 UTC
+    - cron: '0 3 * * *'  # 매일 UTC 03:00 → 한국(KST) 정오 12시 (낮 12시)
   workflow_dispatch:
 
 jobs:
