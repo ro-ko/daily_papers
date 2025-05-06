@@ -33,10 +33,15 @@ jobs:
       run: |
         python daily_runner.py
 
-    - name: Commit results
+    - name: Set up Git config
       run: |
-        git config --global user.email "actions@github.com"
-        git config --global user.name "GitHub Actions"
-        git add output/summaries/
-        git commit -m "Daily summary for $(date +'%Y-%m-%d')" || echo "No changes"
-        git push
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        
+    - name: Commit and push summary
+      run: |
+        git add output/summaries/*.md
+        git commit -m "Daily summary for $(date +'%Y-%m-%d')" || echo "No changes to commit"
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
