@@ -1,5 +1,3 @@
-# daily_papers
-
 # 🤖 Hugging Face Daily Papers 요약 자동화
 
 이 레포는 Hugging Face의 [Daily Papers](https://huggingface.co/papers)에 매일 올라오는 최신 인공지능 논문들을 자동으로 크롤링하고, OpenAI GPT API를 활용해 요약하는 시스템입니다. 요약 결과는 매일 마크다운 형식으로 저장되며, GitHub Actions를 통해 자동화됩니다.

@@ -1,6 +1,5 @@
 # scraper.py
 import requests
-from bs4 import BeautifulSoup
 from playwright.sync_api import sync_playwright
 
 def fetch_paper_links(date="2025-05-05"):
