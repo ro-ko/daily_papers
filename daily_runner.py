@@ -1,5 +1,4 @@
-# daily_runner.py
-from datetime import datetime
+from datetime import datetime, timedelta
 from scraper import fetch_paper_links
 from summarizer import summarize_text
 import os
@@ -16,16 +15,18 @@ def save_markdown(papers, date_str):
     return file_path
 
 def main():
-    date_str = datetime.now().strftime("%Y-%m-%d")
-    print(f"📅 Fetching papers for {date_str}...")
+    yesterday = datetime.now() - timedelta(days=1)
+    date_str = yesterday.strftime("%Y-%m-%d")
+    
+    print(f"📅 Fetching papers for Yesterday: {date_str}...")
 
     urls = fetch_paper_links(date_str)
-    # urls = fetch_paper_links("2025-05-05")
     papers = []
 
     for url in urls:
         print(f"\n🔍 Processing: {url}")
         summary = summarize_text(url)
+        # URL 마지막 부분을 제목으로 변환 (예: some-paper-title -> Some Paper Title)
         title = url.split("/")[-1].replace("-", " ").title()
         papers.append({
             "url": url,
